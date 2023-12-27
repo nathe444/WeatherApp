@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./components/css/App.css";
 
 function App() {
-  let [city, setCity] = useState("ethiopia");
+  let [city, setCity] = useState("addis ababa");
 
   let [search,setSearch]=useState('');
 
@@ -25,10 +25,11 @@ function App() {
 
   let apiKey = "6a9aed96e822f019b7dd48c20f279e00";
 
-  
+  const inputReference= React.useState(null);
 
   let handleSubmit = ()=>{
     setCity(search);
+    inputReference.current.value='';
     console.log(city)
   }
 
@@ -54,6 +55,7 @@ function App() {
         let result= (await response.json());
         setfetched(result);
         setIsFetched(true);
+        
       } catch (err){
         console.error(err);
       }
@@ -73,6 +75,7 @@ function App() {
             placeholder="Search City"
             className="search"
             name="search"
+            ref={inputReference}
             onChange={handleChange}
           />
           <button onClick={handleSubmit}>
